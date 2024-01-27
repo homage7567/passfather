@@ -1,0 +1,42 @@
+:host ::ng-deep {
+  .database-loader-header-end {
+    .p-dropdown {
+      width: 150px;
+    }
+  }
+
+  .database-loader-header {
+    .p-menubar {
+      padding: 16px;
+      border-radius: 0 0 8px 8px;
+    }
+  }
+
+  .database-loader {
+    &__password {
+      width: 100%;
+    }
+  }
+}
+
+.database-loader {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 500px;
+  margin: auto;
+  height: calc(100% - 64px);
+  justify-content: center;
+}
+
+.database-loader-header-start {
+  &__title {
+    margin: 0;
+    color: var(--primary-color);
+  }
+}
+
+.database-loader-header-end {
+  display: flex;
+  gap: 8px;
+}

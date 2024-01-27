@@ -1,0 +1,52 @@
+<p-menubar class="database-loader-header">
+  <ng-template pTemplate="start">
+    <div class="database-loader-header-start">
+      <h1 class="database-loader-header-start__title">Passfather</h1>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="end">
+    <div class="database-loader-header-end">
+      <p-dropdown
+        class="database-loader-header-end__selector"
+        [options]="languages"
+        [(ngModel)]="selectedLanguage"
+        optionLabel="label"
+        optionValue="code"
+      ></p-dropdown>
+
+      <p-dropdown
+        panelStyleClass="database-loader-header-end__selector"
+        [options]="themes"
+        [(ngModel)]="selectedTheme"
+        optionLabel="label"
+        optionValue="value"
+      ></p-dropdown>
+    </div>
+  </ng-template>
+</p-menubar>
+
+<div class="database-loader">
+  <pf-file-loader label="Выберите базу паролей" [(ngModel)]="loadedFile" />
+
+  <p-password
+    inputStyleClass="database-loader__password"
+    styleClass="database-loader__password"
+    [(ngModel)]="password"
+    [toggleMask]="true"
+    [feedback]="false"
+  ></p-password>
+
+  <pf-file-loader
+    label="Выберите ключ-файл"
+    [showIcon]="false"
+    [(ngModel)]="loadedKeyFile"
+  />
+
+  <p-button
+    styleClass="database-loader__password"
+    label="Открыть"
+    size="large"
+    [rounded]="true"
+    (click)="onLoadDatabase()"
+  ></p-button>
+</div>
