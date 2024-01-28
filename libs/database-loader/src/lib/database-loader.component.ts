@@ -8,6 +8,7 @@ import { MenubarModule } from 'primeng/menubar';
 import { DropdownModule } from 'primeng/dropdown';
 import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
+import { TranslocoModule } from '@ngneat/transloco';
 
 @UntilDestroy()
 @Component({
@@ -21,6 +22,7 @@ import { ButtonModule } from 'primeng/button';
     PasswordModule,
     ButtonModule,
     FileLoaderComponent,
+    TranslocoModule,
   ],
   templateUrl: './database-loader.component.html',
   styleUrl: './database-loader.component.scss',
@@ -28,23 +30,9 @@ import { ButtonModule } from 'primeng/button';
   providers: [DatabaseLoaderService],
 })
 export class DatabaseLoaderComponent {
-  public readonly themes = [
-    { label: 'Light', value: 'light' },
-    { label: 'Dark', value: 'dark' },
-    { label: 'System', value: 'system' },
-  ];
-  public readonly languages = [
-    { label: 'RU', code: 'ru' },
-    { label: 'EN', code: 'en' },
-  ];
-
-  public selectedTheme = 'light';
-  public selectedLanguage = 'ru';
-
   public password: string | undefined;
   public loadedFile: File | undefined;
   public loadedKeyFile: File | undefined;
-  public passwordVisible = false;
 
   private readonly databaseLoaderService = inject(DatabaseLoaderService);
 

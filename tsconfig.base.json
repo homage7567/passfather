@@ -16,7 +16,8 @@
     "baseUrl": ".",
     "paths": {
       "@pf/core": ["libs/core/src/index.ts"],
-      "@pf/database-loader": ["libs/database-loader/src/index.ts"]
+      "@pf/database-loader": ["libs/database-loader/src/index.ts"],
+      "@pf/localization": ["libs/localization/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

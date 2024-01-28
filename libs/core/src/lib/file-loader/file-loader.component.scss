@@ -10,15 +10,15 @@
   height: 100%;
   background: rgba(255, 255, 255, 0.04);
   border: 1px dashed #ced4da;
-  border-radius: 2px;
   transition: border-color 0.3s;
+  border-radius: 6px;
 
   &:hover {
     border-color: var(--primary-color);
   }
 
   &__icon {
-    color: #40a9ff;
+    color: var(--primary-color);
     font-size: 2rem;
   }
 

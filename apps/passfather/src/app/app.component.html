@@ -1,1 +1,29 @@
+<p-menubar class="database-loader-header">
+  <ng-template pTemplate="start">
+    <div class="database-loader-header-start">
+      <h1 class="database-loader-header-start__title">Passfather</h1>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="end">
+    <div class="database-loader-header-end">
+      <p-dropdown
+        class="database-loader-header-end__selector"
+        [options]="languages"
+        [(ngModel)]="selectedLanguage"
+        optionLabel="label"
+        optionValue="code"
+        (onChange)="onChangeLanguage($event.value)"
+      ></p-dropdown>
+
+      <p-dropdown
+        panelStyleClass="database-loader-header-end__selector"
+        [options]="themes"
+        [(ngModel)]="selectedTheme"
+        optionLabel="label"
+        optionValue="value"
+      ></p-dropdown>
+    </div>
+  </ng-template>
+</p-menubar>
+
 <router-outlet></router-outlet>
