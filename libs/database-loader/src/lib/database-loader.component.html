@@ -1,21 +1,24 @@
-<pf-file-loader
-  [label]="'databaseLoader.databaseLabel' | transloco"
-  [(ngModel)]="loadedFile"
-/>
+<div class="database-loader-form">
+  <pf-file-loader
+    [label]="'databaseLoader.databaseLabel' | transloco"
+    [(ngModel)]="loadedFile"
+  />
 
-<p-password
-  inputStyleClass="database-loader-password"
-  styleClass="database-loader-password"
-  [(ngModel)]="password"
-  [toggleMask]="true"
-  [feedback]="false"
-></p-password>
+  <pf-file-loader
+    [label]="'databaseLoader.keyFileLabel' | transloco"
+    [showIcon]="false"
+    [(ngModel)]="loadedKeyFile"
+  />
 
-<pf-file-loader
-  [label]="'databaseLoader.keyFileLabel' | transloco"
-  [showIcon]="false"
-  [(ngModel)]="loadedKeyFile"
-/>
+  <p-password
+    inputStyleClass="database-loader-password"
+    styleClass="database-loader-password"
+    [placeholder]="'databaseLoader.passwordPlaceholder' | transloco"
+    [(ngModel)]="password"
+    [toggleMask]="true"
+    [feedback]="false"
+  ></p-password>
+</div>
 
 <p-button
   styleClass="database-loader-password"

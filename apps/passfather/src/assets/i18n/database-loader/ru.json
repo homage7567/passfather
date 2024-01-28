@@ -1,5 +1,6 @@
 {
   "databaseLabel": "Выберите базу паролей",
   "keyFileLabel": "Выберите ключ-файл",
+  "passwordPlaceholder": "Введите мастер-пароль",
   "openButtonLabel": "Открыть"
 }

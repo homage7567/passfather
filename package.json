@@ -22,6 +22,7 @@
     "@nx/angular": "17.2.8",
     "fs": "^0.0.1-security",
     "kdbxweb": "^2.1.1",
+    "ngx-cookie-service": "^17.0.1",
     "primeicons": "^6.0.1",
     "primeng": "^17.4.0",
     "rxjs": "~7.8.0",

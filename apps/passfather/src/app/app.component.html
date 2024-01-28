@@ -5,7 +5,10 @@
     </div>
   </ng-template>
   <ng-template pTemplate="end">
-    <div class="database-loader-header-end">
+    <div
+      class="database-loader-header-end"
+      *ngIf="{ selectedTheme: selectedTheme$ | async } as state"
+    >
       <p-dropdown
         class="database-loader-header-end__selector"
         [options]="languages"
@@ -18,9 +21,10 @@
       <p-dropdown
         panelStyleClass="database-loader-header-end__selector"
         [options]="themes"
-        [(ngModel)]="selectedTheme"
+        [(ngModel)]="state.selectedTheme"
         optionLabel="label"
         optionValue="value"
+        (onChange)="onChangeTheme($event.value)"
       ></p-dropdown>
     </div>
   </ng-template>

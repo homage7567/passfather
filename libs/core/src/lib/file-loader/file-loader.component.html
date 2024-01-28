@@ -1,17 +1,13 @@
 <div class="file-uploader" (click)="input.click()">
-  <i
-    *ngIf="showIcon"
-    style="font-size: 2rem"
-    class="pi pi-key file-uploader__icon"
-  ></i>
-
-  <p class="file-uploader__text">
-    <ng-container *ngIf="value">
-      {{ value.name }}
-    </ng-container>
-
-    <ng-container *ngIf="!value">{{ label }}</ng-container>
+  <p *ngIf="!value" class="file-uploader__placeholder">
+    {{ label }}
   </p>
+
+  <p *ngIf="value" class="file-uploader__text">
+    {{ value.name }}
+  </p>
+
+  <i *ngIf="showIcon" class="pi pi-key file-uploader__icon"></i>
 
   <input
     #input

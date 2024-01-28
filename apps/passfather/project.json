@@ -20,7 +20,19 @@
           "apps/passfather/src/favicon.ico",
           "apps/passfather/src/assets"
         ],
-        "styles": ["apps/passfather/src/styles.scss"],
+        "styles": [
+          "apps/passfather/src/styles.scss",
+          {
+            "input": "apps/passfather/src/styles/theme-light.scss",
+            "bundleName": "light",
+            "inject": false
+          },
+          {
+            "input": "apps/passfather/src/styles/theme-dark.scss",
+            "bundleName": "dark",
+            "inject": false
+          }
+        ],
         "scripts": []
       },
       "configurations": {

@@ -10,9 +10,11 @@ import {
   provideTranslocoPersistLang,
 } from '@ngneat/transloco-persist-lang';
 import { getLangFn } from './get-lang-fn';
+import { CookieService } from 'ngx-cookie-service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    CookieService,
     provideRouter(appRoutes),
     provideHttpClient(),
     provideAnimations(),

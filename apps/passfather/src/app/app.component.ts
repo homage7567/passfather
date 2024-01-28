@@ -5,10 +5,13 @@ import { MenubarModule } from 'primeng/menubar';
 import { SharedModule } from 'primeng/api';
 import { FormsModule } from '@angular/forms';
 import { TranslocoService } from '@ngneat/transloco';
+import { ThemeOptionsType, ThemeService } from '@pf/theme';
+import { CommonModule } from '@angular/common';
 
 @Component({
   standalone: true,
   imports: [
+    CommonModule,
     RouterModule,
     DropdownModule,
     MenubarModule,
@@ -21,8 +24,6 @@ import { TranslocoService } from '@ngneat/transloco';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
-  private readonly translocoService = inject(TranslocoService);
-
   public readonly themes = [
     { label: 'Light', value: 'light' },
     { label: 'Dark', value: 'dark' },
@@ -34,10 +35,21 @@ export class AppComponent {
     { label: 'EN', code: 'en' },
   ];
 
-  public selectedTheme = 'light';
+  public selectedTheme$ = this.themeService.theme$;
   public selectedLanguage = this.translocoService.getActiveLang();
+
+  constructor(
+    private readonly translocoService: TranslocoService,
+    private readonly themeService: ThemeService
+  ) {
+    this.themeService.init();
+  }
 
   public onChangeLanguage(languageCode: string) {
     this.translocoService.setActiveLang(languageCode);
+  }
+
+  public onChangeTheme(themeOption: ThemeOptionsType) {
+    this.themeService.setTheme(themeOption);
   }
 }

@@ -1,5 +1,6 @@
 {
   "databaseLabel": "Choose a password database",
   "keyFileLabel": "Choose a key-file",
+  "passwordPlaceholder": "Enter a master password",
   "openButtonLabel": "Open"
 }

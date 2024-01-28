@@ -72,10 +72,14 @@ export default class App {
       webPreferences: {
         contextIsolation: true,
         backgroundThrottling: false,
-        preload: join(__dirname, 'main.preload.js')
+        preload: join(__dirname, 'main.preload.js'),
       },
     });
-    App.mainWindow.webContents.openDevTools();
+
+    if (this.isDevelopmentMode()) {
+      App.mainWindow.webContents.openDevTools();
+    }
+
     App.mainWindow.setMenu(null);
     App.mainWindow.center();
 
