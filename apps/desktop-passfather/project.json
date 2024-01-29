@@ -65,6 +65,14 @@
       "options": {
         "jestConfig": "apps/desktop-passfather/jest.config.ts"
       }
+    },
+    "stylelint": {
+      "executor": "nx-stylelint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/desktop-passfather/**/*.css", "apps/desktop-passfather/**/*.scss"],
+        "formatter": "unix"
+      }
     }
   }
 }

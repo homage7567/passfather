@@ -5,6 +5,7 @@
   "scripts": {
     "postinstall": "electron-builder install-app-deps",
     "build:prod": "nx run passfather:build:production && nx run desktop-passfather:build && nx run desktop-passfather:make",
+    "scss:generate-config": "nx g nx-stylelint:configuration --scss true --formatter unix --project {project_name}",
     "prepare": "husky"
   },
   "private": true,

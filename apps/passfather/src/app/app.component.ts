@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { DropdownModule } from 'primeng/dropdown';
 import { MenubarModule } from 'primeng/menubar';
@@ -10,38 +10,28 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   standalone: true,
-  imports: [
-    CommonModule,
-    RouterModule,
-    DropdownModule,
-    MenubarModule,
-    SharedModule,
-    FormsModule,
-  ],
+  imports: [CommonModule, RouterModule, DropdownModule, MenubarModule, SharedModule, FormsModule],
   selector: 'pf-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
   public readonly themes = [
     { label: 'Light', value: 'light' },
     { label: 'Dark', value: 'dark' },
-    { label: 'System', value: 'system' },
+    { label: 'System', value: 'system' }
   ];
 
   public readonly languages = [
     { label: 'RU', code: 'ru' },
-    { label: 'EN', code: 'en' },
+    { label: 'EN', code: 'en' }
   ];
 
   public selectedTheme$ = this.themeService.theme$;
   public selectedLanguage = this.translocoService.getActiveLang();
 
-  constructor(
-    private readonly translocoService: TranslocoService,
-    private readonly themeService: ThemeService
-  ) {
+  constructor(private readonly translocoService: TranslocoService, private readonly themeService: ThemeService) {
     this.themeService.init();
   }
 

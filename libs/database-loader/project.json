@@ -16,6 +16,14 @@
     "lint": {
       "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"]
+    },
+    "stylelint": {
+      "executor": "nx-stylelint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/database-loader/**/*.css", "libs/database-loader/**/*.scss"],
+        "formatter": "unix"
+      }
     }
   }
 }

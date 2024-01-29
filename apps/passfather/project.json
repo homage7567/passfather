@@ -16,10 +16,7 @@
         "polyfills": ["zone.js"],
         "tsConfig": "apps/passfather/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
-        "assets": [
-          "apps/passfather/src/favicon.ico",
-          "apps/passfather/src/assets"
-        ],
+        "assets": ["apps/passfather/src/favicon.ico", "apps/passfather/src/assets"],
         "styles": [
           "apps/passfather/src/styles.scss",
           {
@@ -100,6 +97,14 @@
       "executor": "@nx/web:file-server",
       "options": {
         "buildTarget": "passfather:build"
+      }
+    },
+    "stylelint": {
+      "executor": "nx-stylelint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/passfather/**/*.css", "apps/passfather/**/*.scss"],
+        "formatter": "unix"
       }
     }
   }
