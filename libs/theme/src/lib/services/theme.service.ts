@@ -39,7 +39,7 @@ export class ThemeService {
     this._theme$.next(theme);
     this.cookieService.set('theme', themeOption);
 
-    let themeLink = this.document.getElementById(
+    const themeLink = this.document.getElementById(
       'app-theme'
     ) as HTMLLinkElement;
 

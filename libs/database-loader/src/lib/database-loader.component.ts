@@ -22,12 +22,12 @@ import { TranslocoModule } from '@ngneat/transloco';
     PasswordModule,
     ButtonModule,
     FileLoaderComponent,
-    TranslocoModule,
+    TranslocoModule
   ],
   templateUrl: './database-loader.component.html',
   styleUrl: './database-loader.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [DatabaseLoaderService],
+  providers: [DatabaseLoaderService]
 })
 export class DatabaseLoaderComponent {
   public password: string | undefined;
