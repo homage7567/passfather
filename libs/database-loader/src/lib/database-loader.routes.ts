@@ -1,5 +1,5 @@
 import { Route } from '@angular/router';
-import { DatabaseLoaderComponent } from '@pf/database-loader';
+import { DatabaseLoaderComponent } from './database-loader.component';
 
 export const databaseLoaderRoutes: Route[] = [
   {

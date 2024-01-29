@@ -4,7 +4,7 @@
   "projectType": "application",
   "prefix": "pf",
   "sourceRoot": "apps/passfather/src",
-  "tags": [],
+  "tags": ["app"],
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
@@ -84,7 +84,9 @@
     },
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"]
+      "options": {
+        "lintFilePatterns": ["apps/passfather/**/*.ts"]
+      }
     },
     "test": {
       "executor": "@nx/jest:jest",

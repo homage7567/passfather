@@ -22,6 +22,7 @@ export class ThemeService {
     const currentThemeOption =
       (this.cookieService.get('theme') as ThemeOptionsType) ||
       ThemeOptions.LIGHT;
+
     this.applyThemeOption(currentThemeOption);
   }
 
@@ -44,7 +45,7 @@ export class ThemeService {
     ) as HTMLLinkElement;
 
     if (themeLink) {
-      themeLink.href = theme + '.css';
+      themeLink.href = `${theme  }.css`;
     }
   }
 }

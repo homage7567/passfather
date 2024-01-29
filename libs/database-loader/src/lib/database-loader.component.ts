@@ -36,14 +36,6 @@ export class DatabaseLoaderComponent {
 
   private readonly databaseLoaderService = inject(DatabaseLoaderService);
 
-  public onFileSelected(event: any): void {
-    if (!event.target.files?.length) {
-      return;
-    }
-
-    this.loadedFile = event.target.files[0];
-  }
-
   public onLoadDatabase() {
     if (!this.loadedFile || !this.password) {
       return;
@@ -53,6 +45,7 @@ export class DatabaseLoaderComponent {
       .readDatabase(this.loadedFile, this.password)
       .pipe(untilDestroyed(this))
       .subscribe((response) => {
+        // eslint-disable-next-line no-console
         console.log('--- KDBX', response);
       });
   }

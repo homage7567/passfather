@@ -6,7 +6,7 @@ import { Kdbx, ProtectedValue, Credentials } from 'kdbxweb';
 export class DatabaseLoaderService {
   public readDatabase(file: File, password: string): Observable<Kdbx | null> {
     return from(file.arrayBuffer()).pipe(
-      switchMap((buffer: any) => {
+      switchMap((buffer: ArrayBuffer) => {
         if (!buffer) {
           return of(null);
         }

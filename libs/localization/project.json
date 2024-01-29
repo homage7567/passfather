@@ -3,12 +3,14 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/localization/src",
   "prefix": "pf",
-  "tags": [],
+  "tags": ["shared"],
   "projectType": "library",
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"]
+      "options": {
+        "lintFilePatterns": ["libs/localization/**/*.ts"]
+      }
     },
     "stylelint": {
       "executor": "nx-stylelint:lint",

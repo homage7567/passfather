@@ -27,9 +27,11 @@
             "allow": [],
             "depConstraints": [
               {
-                "sourceTag": "*",
+                "sourceTag": "app",
                 "onlyDependOnLibsWithTags": [
-                  "*"
+                  "core",
+                  "shared",
+                  "feature"
                 ]
               },
               {

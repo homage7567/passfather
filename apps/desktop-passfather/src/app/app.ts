@@ -13,8 +13,7 @@ export default class App {
 
   public static isDevelopmentMode() {
     const isEnvironmentSet: boolean = 'ELECTRON_IS_DEV' in process.env;
-    const getFromEnvironment: boolean =
-      parseInt(process.env.ELECTRON_IS_DEV, 10) === 1;
+    const getFromEnvironment: boolean = parseInt(process.env.ELECTRON_IS_DEV, 10) === 1;
 
     return isEnvironmentSet ? getFromEnvironment : !environment.production;
   }
@@ -32,7 +31,7 @@ export default class App {
     App.mainWindow = null;
   }
 
-  private static onRedirect(event: any, url: string) {
+  private static onRedirect(event: Event, url: string) {
     if (url !== App.mainWindow.webContents.getURL()) {
       // this is a normal external redirect, open it in a new browser window
       event.preventDefault();
@@ -72,8 +71,8 @@ export default class App {
       webPreferences: {
         contextIsolation: true,
         backgroundThrottling: false,
-        preload: join(__dirname, 'main.preload.js'),
-      },
+        preload: join(__dirname, 'main.preload.js')
+      }
     });
 
     if (this.isDevelopmentMode()) {
@@ -112,7 +111,7 @@ export default class App {
         format({
           pathname: join(__dirname, '..', rendererAppName, 'index.html'),
           protocol: 'file:',
-          slashes: true,
+          slashes: true
         })
       );
     }

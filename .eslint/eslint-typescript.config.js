@@ -103,6 +103,12 @@ module.exports = {
           {
             selector: 'property',
             format: ['camelCase', 'PascalCase']
+          },
+          {
+            selector: 'classProperty',
+            modifiers: ['private'],
+            format: ['camelCase'],
+            leadingUnderscore: "allow"
           }
         ],
 

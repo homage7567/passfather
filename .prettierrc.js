@@ -3,7 +3,7 @@
 module.exports = {
   // Specify the line length that the printer will wrap on
   // https://prettier.io/docs/en/options.html#print-width
-  printWidth: 120,
+  printWidth: 110,
 
   // Specify the number of spaces per indentation-level
   // https://prettier.io/docs/en/options.html#tab-width
