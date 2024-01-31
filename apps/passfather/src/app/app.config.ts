@@ -4,13 +4,29 @@ import { appRoutes } from './app.routes';
 import { provideHttpClient } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideTransloco } from '@ngneat/transloco';
-import { TranslocoHttpLoaderService } from '@pf/localization';
-import {
-  cookiesStorage,
-  provideTranslocoPersistLang,
-} from '@ngneat/transloco-persist-lang';
-import { getLangFn } from './get-lang-fn';
+import { provideLanguagePreload, TranslocoHttpLoaderService, getLangFn } from '@pf/localization';
+import { cookiesStorage, provideTranslocoPersistLang } from '@ngneat/transloco-persist-lang';
 import { CookieService } from 'ngx-cookie-service';
+import { globalConfig } from '@pf/core';
+
+const languageProviders = [
+  provideLanguagePreload(),
+  provideTransloco({
+    config: {
+      availableLangs: ['ru', 'en'],
+      reRenderOnLangChange: true,
+      prodMode: !isDevMode()
+    },
+    loader: TranslocoHttpLoaderService
+  }),
+  provideTranslocoPersistLang({
+    getLangFn,
+    storageKey: globalConfig.cookies.locale,
+    storage: {
+      useValue: cookiesStorage()
+    }
+  })
+];
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -18,19 +34,6 @@ export const appConfig: ApplicationConfig = {
     provideRouter(appRoutes),
     provideHttpClient(),
     provideAnimations(),
-    provideTransloco({
-      config: {
-        availableLangs: ['ru', 'en'],
-        reRenderOnLangChange: true,
-        prodMode: !isDevMode(),
-      },
-      loader: TranslocoHttpLoaderService,
-    }),
-    provideTranslocoPersistLang({
-      getLangFn,
-      storage: {
-        useValue: cookiesStorage(),
-      },
-    }),
-  ],
+    ...languageProviders
+  ]
 };

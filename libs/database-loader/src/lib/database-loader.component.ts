@@ -1,14 +1,15 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DatabaseLoaderService } from './database-loader.service';
+import { DatabaseLoaderService } from './services/database-loader.service';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { FormsModule } from '@angular/forms';
-import { FileLoaderComponent } from '@pf/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FileLoaderComponent } from '@pf/ui-kit';
 import { MenubarModule } from 'primeng/menubar';
 import { DropdownModule } from 'primeng/dropdown';
 import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
 import { TranslocoModule } from '@ngneat/transloco';
+import { DatabaseLoaderFormService } from './services/database-loader-form.service';
 
 @UntilDestroy()
 @Component({
@@ -16,7 +17,7 @@ import { TranslocoModule } from '@ngneat/transloco';
   standalone: true,
   imports: [
     CommonModule,
-    FormsModule,
+    ReactiveFormsModule,
     MenubarModule,
     DropdownModule,
     PasswordModule,
@@ -27,22 +28,32 @@ import { TranslocoModule } from '@ngneat/transloco';
   templateUrl: './database-loader.component.html',
   styleUrl: './database-loader.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [DatabaseLoaderService]
+  providers: [DatabaseLoaderService, DatabaseLoaderFormService]
 })
 export class DatabaseLoaderComponent {
-  public password: string | undefined;
-  public loadedFile: File | undefined;
-  public loadedKeyFile: File | undefined;
+  public readonly form = this.databaseLoaderFormService.buildForm();
 
-  private readonly databaseLoaderService = inject(DatabaseLoaderService);
+  constructor(
+    private readonly databaseLoaderService: DatabaseLoaderService,
+    private readonly databaseLoaderFormService: DatabaseLoaderFormService
+  ) {
+  }
 
-  public onLoadDatabase() {
-    if (!this.loadedFile || !this.password) {
+  public onSubmit(): void {
+    if (this.form.invalid) {
+      this.databaseLoaderFormService.markAllAsDirty(this.form);
+
+      return;
+    }
+
+    const request = this.databaseLoaderFormService.buildRequest(this.form);
+
+    if (!request) {
       return;
     }
 
     this.databaseLoaderService
-      .readDatabase(this.loadedFile, this.password)
+      .readDatabase(request)
       .pipe(untilDestroyed(this))
       .subscribe((response) => {
         // eslint-disable-next-line no-console

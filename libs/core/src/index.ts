@@ -1,1 +1,1 @@
-export { FileLoaderComponent } from './lib/file-loader/file-loader.component';
+export { globalConfig } from './lib/constants/global-config';

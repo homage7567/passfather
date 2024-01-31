@@ -1,28 +1,52 @@
-<p-menubar class="database-loader-header">
+<p-menubar class="header">
   <ng-template pTemplate="start">
-    <div class="database-loader-header-start">
-      <h1 class="database-loader-header-start__title">Passfather</h1>
+    <div class="header-start">
+      <h1 class="header-start__title">Passfather</h1>
     </div>
   </ng-template>
   <ng-template pTemplate="end">
-    <div class="database-loader-header-end">
+    <div class="header-end">
       <p-dropdown
-        class="database-loader-header-end__selector"
-        [options]="languages"
-        [(ngModel)]="selectedLanguage"
-        optionLabel="label"
-        optionValue="code"
+        class="header-end__language-selector"
+        [options]="availableLanguages"
+        [ngModel]="selectedLanguage"
         (onChange)="onChangeLanguage($event.value)"
-      />
+      >
+        <ng-template
+          pTemplate="selectedItem"
+          let-selectedLanguage
+        >
+          {{ 'languages.' + selectedLanguage | transloco }}
+        </ng-template>
+
+        <ng-template
+          let-language
+          pTemplate="item"
+        >
+          {{ 'languages.' + language | transloco }}
+        </ng-template>
+      </p-dropdown>
 
       <p-dropdown
-        panelStyleClass="database-loader-header-end__selector"
-        [options]="themes"
-        [(ngModel)]="selectedTheme$ | async"
-        optionLabel="label"
-        optionValue="value"
+        class="header-end__theme-selector"
+        [options]="availableThemes"
+        [ngModel]="selectedTheme$ | async"
         (onChange)="onChangeTheme($event.value)"
-      />
+      >
+        <ng-template
+          pTemplate="selectedItem"
+          let-selectedTheme
+        >
+          {{ 'themes.' + selectedTheme | transloco }}
+        </ng-template>
+
+        <ng-template
+          let-theme
+          pTemplate="item"
+        >
+          {{ 'themes.' + theme | transloco }}
+        </ng-template>
+      </p-dropdown>
     </div>
   </ng-template>
 </p-menubar>

@@ -1,29 +1,37 @@
-<div class="database-loader-form">
-  <pf-file-loader
-    [label]="'databaseLoader.databaseLabel' | transloco"
-    [(ngModel)]="loadedFile"
-  />
+<form class="database-loader-form" [formGroup]="form" (submit)="onSubmit()">
+  <div class="database-loader-form-content">
+    <pf-file-loader
+      formControlName="database"
+      required
+      [class.ng-invalid]="form.controls['database'].invalid"
+      [class.ng-dirty]="form.controls['database'].dirty"
+      [label]="'databaseLoader.databaseLabel' | transloco"
+    />
 
-  <pf-file-loader
-    [label]="'databaseLoader.keyFileLabel' | transloco"
-    [showIcon]="false"
-    [(ngModel)]="loadedKeyFile"
-  />
+    <pf-file-loader
+      formControlName="keyFile"
+      [showIcon]="false"
+      [label]="'databaseLoader.keyFileLabel' | transloco"
+    />
 
-  <p-password
-    inputStyleClass="database-loader-password"
-    styleClass="database-loader-password"
-    [placeholder]="'databaseLoader.passwordPlaceholder' | transloco"
-    [(ngModel)]="password"
-    [toggleMask]="true"
-    [feedback]="false"
-  ></p-password>
-</div>
+    <p-password
+      styleClass="database-loader-form-content__password"
+      inputStyleClass="database-loader-form-content__password"
+      formControlName="password"
+      required
+      [class.ng-invalid]="form.controls['password'].invalid"
+      [class.ng-dirty]="form.controls['password'].dirty"
+      [feedback]="false"
+      [toggleMask]="true"
+      [placeholder]="'databaseLoader.passwordPlaceholder' | transloco"
+    ></p-password>
+  </div>
 
-<p-button
-  styleClass="database-loader-password"
-  size="large"
-  [label]="'databaseLoader.openButtonLabel' | transloco"
-  [rounded]="true"
-  (click)="onLoadDatabase()"
-></p-button>
+  <p-button
+    styleClass="database-loader-form__action"
+    size="large"
+    type="submit"
+    [rounded]="true"
+    [label]="'databaseLoader.openButtonLabel' | transloco"
+  ></p-button>
+</form>

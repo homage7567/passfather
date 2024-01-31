@@ -4,42 +4,45 @@ import { DropdownModule } from 'primeng/dropdown';
 import { MenubarModule } from 'primeng/menubar';
 import { SharedModule } from 'primeng/api';
 import { FormsModule } from '@angular/forms';
-import { TranslocoService } from '@ngneat/transloco';
-import { ThemeOptionsType, ThemeService } from '@pf/theme';
+import { TranslocoModule, TranslocoService } from '@ngneat/transloco';
+import { ThemeOption, ThemeOptionType, ThemeService } from '@pf/theme';
 import { CommonModule } from '@angular/common';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, RouterModule, DropdownModule, MenubarModule, SharedModule, FormsModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    DropdownModule,
+    MenubarModule,
+    SharedModule,
+    FormsModule,
+    TranslocoModule
+  ],
   selector: 'pf-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
-  public readonly themes = [
-    { label: 'Light', value: 'light' },
-    { label: 'Dark', value: 'dark' },
-    { label: 'System', value: 'system' }
-  ];
+  public readonly selectedTheme$ = this.themeService.theme$;
+  public readonly availableThemes = Object.values(ThemeOption);
 
-  public readonly languages = [
-    { label: 'RU', code: 'ru' },
-    { label: 'EN', code: 'en' }
-  ];
+  public readonly selectedLanguage = this.translocoService.getActiveLang();
+  public readonly availableLanguages = this.translocoService.getAvailableLangs();
 
-  public selectedTheme$ = this.themeService.theme$;
-  public selectedLanguage = this.translocoService.getActiveLang();
-
-  constructor(private readonly translocoService: TranslocoService, private readonly themeService: ThemeService) {
+  constructor(
+    private readonly translocoService: TranslocoService,
+    private readonly themeService: ThemeService
+  ) {
     this.themeService.init();
   }
 
-  public onChangeLanguage(languageCode: string) {
+  public onChangeLanguage(languageCode: string): void {
     this.translocoService.setActiveLang(languageCode);
   }
 
-  public onChangeTheme(themeOption: ThemeOptionsType) {
+  public onChangeTheme(themeOption: ThemeOptionType) {
     this.themeService.setTheme(themeOption);
   }
 }

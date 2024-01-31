@@ -1,8 +1,9 @@
+@import "primeng/resources/primeng.css";
+@import "primeicons/primeicons.css";
+
+@import "styles/globals.scss";
+
 body {
   margin: 0;
   background: var(--surface-b);
 }
-
-@import "primeng/resources/primeng.css";
-
-@import "primeicons/primeicons.css";

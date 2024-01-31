@@ -5,7 +5,7 @@
   height: 100vh;
 
   ::ng-deep {
-    .database-loader-header {
+    .header {
       .p-menubar {
         padding: 16px;
         border-radius: 0 0 8px 8px;
@@ -13,22 +13,28 @@
       }
     }
 
-    .database-loader-header-end {
+    .header-end .header-end__language-selector {
       .p-dropdown {
         width: 150px;
+      }
+    }
+
+    .header-end .header-end__theme-selector {
+      .p-dropdown {
+        width: 170px;
       }
     }
   }
 }
 
-.database-loader-header-start {
+.header-start {
   &__title {
     margin: 0;
     color: var(--primary-color);
   }
 }
 
-.database-loader-header-end {
+.header-end {
   display: flex;
   gap: 8px;
 }

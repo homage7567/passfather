@@ -10,7 +10,7 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "lib": ["es2020", "dom"],
+    "lib": ["esnext", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
@@ -18,7 +18,8 @@
       "@pf/core": ["libs/core/src/index.ts"],
       "@pf/database-loader": ["libs/database-loader/src/index.ts"],
       "@pf/localization": ["libs/localization/src/index.ts"],
-      "@pf/theme": ["libs/theme/src/index.ts"]
+      "@pf/theme": ["libs/theme/src/index.ts"],
+      "@pf/ui-kit": ["libs/ui-kit/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

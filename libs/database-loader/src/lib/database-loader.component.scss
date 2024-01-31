@@ -1,4 +1,20 @@
 :host {
+  ::ng-deep {
+    .database-loader-form {
+      &__action {
+        width: 100%;
+      }
+    }
+
+    .database-loader-form-content {
+      &__password {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.database-loader-form {
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -6,15 +22,9 @@
   margin: auto;
   height: calc(100% - 80px);
   justify-content: center;
-
-  ::ng-deep {
-    .database-loader-password {
-      width: 100%;
-    }
-  }
 }
 
-.database-loader-form {
+.database-loader-form-content {
   display: flex;
   flex-direction: column;
   gap: 16px;

@@ -2,14 +2,15 @@ import { Inject, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Theme, ThemeType } from '../models/theme.enum';
 import { CookieService } from 'ngx-cookie-service';
-import { ThemeOptions, ThemeOptionsType } from '../models/theme-options.enum';
+import { ThemeOption, ThemeOptionType } from '../models/theme-option.enum';
 import { DOCUMENT } from '@angular/common';
+import { globalConfig } from '@pf/core';
 
 @Injectable({ providedIn: 'root' })
 export class ThemeService {
   public readonly theme$: Observable<ThemeType>;
 
-  private _theme$ = new BehaviorSubject<ThemeType>('light');
+  private _theme$ = new BehaviorSubject<ThemeType>(Theme.LIGHT);
 
   constructor(
     @Inject(DOCUMENT) private readonly document: Document,
@@ -19,33 +20,37 @@ export class ThemeService {
   }
 
   public init(): void {
+    this.preloadCurrentTheme();
+  }
+
+  public setTheme(themeOption: ThemeOptionType): void {
+    this.applyThemeOption(themeOption);
+  }
+
+  private preloadCurrentTheme(): void {
     const currentThemeOption =
-      (this.cookieService.get('theme') as ThemeOptionsType) ||
-      ThemeOptions.LIGHT;
+      (this.cookieService.get(globalConfig.cookies.theme) as ThemeOptionType) ||
+      ThemeOption.LIGHT;
 
     this.applyThemeOption(currentThemeOption);
   }
 
-  public setTheme(themeOption: ThemeOptionsType): void {
-    this.applyThemeOption(themeOption);
-  }
-
-  private applyThemeOption(themeOption: ThemeOptionsType) {
+  private applyThemeOption(themeOption: ThemeOptionType): void {
     let theme: ThemeType = Theme.LIGHT;
 
-    if (themeOption === 'dark') {
+    if (themeOption === ThemeOption.DARK) {
       theme = Theme.DARK;
     }
 
     this._theme$.next(theme);
-    this.cookieService.set('theme', themeOption);
+    this.cookieService.set(globalConfig.cookies.theme, themeOption);
 
     const themeLink = this.document.getElementById(
       'app-theme'
     ) as HTMLLinkElement;
 
     if (themeLink) {
-      themeLink.href = `${theme  }.css`;
+      themeLink.href = `${theme}.css`;
     }
   }
 }
