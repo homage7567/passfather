@@ -1,7 +1,7 @@
 import {
-  ChangeDetectionStrategy,
+  ChangeDetectionStrategy, ChangeDetectorRef,
   Component,
-  forwardRef,
+  forwardRef, inject,
   Input
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -23,8 +23,10 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
 })
 export class FileLoaderComponent implements ControlValueAccessor {
-  @Input() label: string = 'Выберите файл';
-  @Input() showIcon = true;
+  private readonly cdr = inject(ChangeDetectorRef);
+
+  @Input() public label: string = 'Выберите файл';
+  @Input() public showIcon = true;
 
   private _value: File | undefined;
   private onChange?: (value: File | undefined) => void;
@@ -58,6 +60,7 @@ export class FileLoaderComponent implements ControlValueAccessor {
   public writeValue(value: File | undefined) {
     if (value !== this._value) {
       this._value = value;
+      this.cdr.detectChanges();
     }
   }
 

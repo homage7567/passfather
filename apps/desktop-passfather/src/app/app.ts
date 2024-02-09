@@ -1,4 +1,4 @@
-import { BrowserWindow, shell, screen } from 'electron';
+import { BrowserWindow, shell, screen, session } from 'electron';
 import { rendererAppName, rendererAppPort } from './constants';
 import { environment } from '../environments/environment';
 import { join } from 'path';
@@ -69,6 +69,7 @@ export default class App {
       show: false,
       resizable: false,
       webPreferences: {
+        nodeIntegration: true,
         contextIsolation: true,
         backgroundThrottling: false,
         preload: join(__dirname, 'main.preload.js')
@@ -99,6 +100,16 @@ export default class App {
       // in an array if your app supports multi windows, this is the time
       // when you should delete the corresponding element.
       App.mainWindow = null;
+    });
+
+    session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
+      return callback({
+        responseHeaders: {
+          ...details.responseHeaders,
+          // eslint-disable-next-line @typescript-eslint/naming-convention
+          'Content-Security-Policy': ["script-src 'self' http://localhost:4200"]
+        }
+      });
     });
   }
 

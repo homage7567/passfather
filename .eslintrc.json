@@ -29,29 +29,20 @@
               {
                 "sourceTag": "app",
                 "onlyDependOnLibsWithTags": [
-                  "core",
                   "shared",
                   "feature"
                 ]
               },
               {
-                "sourceTag": "core",
-                "onlyDependOnLibsWithTags": [
-                  "core",
-                  "shared"
-                ]
-              },
-              {
                 "sourceTag": "feature",
                 "onlyDependOnLibsWithTags": [
-                  "core",
                   "shared"
                 ]
               },
               {
                 "sourceTag": "shared",
                 "onlyDependOnLibsWithTags": [
-                  "core"
+                  "shared"
                 ]
               }
             ]

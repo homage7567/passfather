@@ -7,19 +7,15 @@ import { DatabaseLoaderRequest } from '../models/database-loader-request.interfa
 export class DatabaseLoaderFormService {
   public buildForm(): FormGroup {
     return new FormGroup<DatabaseLoaderForm>({
-      database: new FormControl(
-        null,
-        {
-          nonNullable: true,
-          validators: [Validators.required]
-        }),
+      database: new FormControl(null, {
+        nonNullable: true,
+        validators: [Validators.required]
+      }),
       keyFile: new FormControl<File | null>(null),
-      password: new FormControl(
-        '',
-        {
-          nonNullable: true,
-          validators: [Validators.required]
-        })
+      password: new FormControl('', {
+        nonNullable: true,
+        validators: [Validators.required]
+      })
     });
   }
 
@@ -28,9 +24,7 @@ export class DatabaseLoaderFormService {
 
     if (!database || !password) {
       // eslint-disable-next-line no-console
-      console.warn(
-        '--- DatabaseLoaderFormService.buildRequest - database and password are required'
-      );
+      console.warn('--- DatabaseLoaderFormService.buildRequest - database and password are required');
 
       return null;
     }
