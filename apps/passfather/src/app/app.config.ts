@@ -7,7 +7,8 @@ import { provideTransloco } from '@ngneat/transloco';
 import { provideLanguagePreload, TranslocoHttpLoaderService, getLangFn } from '@pf/localization';
 import { cookiesStorage, provideTranslocoPersistLang } from '@ngneat/transloco-persist-lang';
 import { CookieService } from 'ngx-cookie-service';
-import { globalConfig } from '@pf/core';
+import { CORE_TRACKS_FEATURE_KEY, coreReducer, globalConfig } from '@pf/core';
+import { provideState, provideStore } from '@ngrx/store';
 
 const languageProviders = [
   provideLanguagePreload(),
@@ -31,6 +32,8 @@ const languageProviders = [
 export const appConfig: ApplicationConfig = {
   providers: [
     CookieService,
+    provideStore({}),
+    provideState(CORE_TRACKS_FEATURE_KEY, coreReducer),
     provideRouter(appRoutes),
     provideHttpClient(),
     provideAnimations(),

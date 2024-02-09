@@ -1,0 +1,8 @@
+<p-tree
+  selectionMode="single"
+  filterMode="strict"
+  [(selection)]="selectedFile"
+  [filter]="true"
+  [value]="treeNodes$ | async"
+  (onNodeSelect)="onSelected($event)"
+/>

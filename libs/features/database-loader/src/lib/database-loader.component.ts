@@ -10,11 +10,13 @@ import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
 import { TranslocoModule } from '@ngneat/transloco';
 import { DatabaseLoaderFormService } from './services/database-loader-form.service';
-import { RECENT_FILES_DB, RecentFilesDB } from '@pf/db';
-import { IS_ELECTRON } from '@pf/core';
+import { RECENT_FILES_DB, RecentFilesDB, RecentFilesDBModel, RecentFilesDBRequest } from '@pf/db';
+import { DatabasesCoreActions, IS_ELECTRON } from '@pf/core';
 import { WINDOW } from '@ng-web-apis/common';
-import { from } from 'rxjs';
-import { v4 as uuidv4 } from 'uuid';
+import { from, tap } from 'rxjs';
+import { Kdbx } from 'kdbxweb';
+import { Store } from '@ngrx/store';
+import { Router } from '@angular/router';
 
 @UntilDestroy()
 @Component({
@@ -39,9 +41,11 @@ export class DatabaseLoaderComponent {
   public readonly form = this.databaseLoaderFormService.buildForm();
 
   constructor(
+    public readonly store: Store,
     @Inject(IS_ELECTRON) private readonly isElectron: boolean,
     @Inject(RECENT_FILES_DB) private readonly recentFilesDB: RecentFilesDB,
     @Inject(WINDOW) private readonly window: Window,
+    private readonly router: Router,
     private readonly databaseLoaderService: DatabaseLoaderService,
     private readonly databaseLoaderFormService: DatabaseLoaderFormService
   ) {
@@ -63,37 +67,55 @@ export class DatabaseLoaderComponent {
 
     this.databaseLoaderService
       .readDatabase(request)
-      .pipe(untilDestroyed(this))
-      .subscribe(response => {
-        // eslint-disable-next-line no-console
-        console.log('--- KDBX', response);
-      });
+      .pipe(tap(this.handleSuccessDatabaseReadingEffect.bind(this)), untilDestroyed(this))
+      .subscribe(this.handleSuccessDatabaseReading.bind(this));
   }
 
   private prepareLatestFilesProcessing(): void {
-    this.form
-      .get('database')
-      ?.valueChanges.pipe(untilDestroyed(this))
-      .subscribe(
-        (value: File) =>
-          value.path &&
-          this.recentFilesDB.put(uuidv4(), {
-            name: value.name,
-            path: value.path
-          })
-      );
+    if (!this.isElectron) {
+      return;
+    }
 
     this.recentFilesDB
       .getLast()
       .pipe(untilDestroyed(this))
-      .subscribe(lastRecord => {
-        if (this.isElectron && lastRecord) {
-          from(this.window.electron.loadFile(lastRecord))
-            .pipe(untilDestroyed(this))
-            .subscribe(file => {
-              this.form.get('database')?.patchValue(file);
-            });
-        }
-      });
+      .subscribe(this.handleRecentRecordInDatabase.bind(this));
+  }
+
+  private handleSuccessDatabaseReadingEffect(response: Kdbx | null) {
+    const database = this.form.get('database')?.value;
+
+    if (!response || !this.isElectron || !database) {
+      return;
+    }
+
+    const keyFile = this.form.get('keyFile')?.value;
+    const dbRequest: RecentFilesDBRequest = { name: database.name, path: database.path };
+
+    if (keyFile) {
+      dbRequest.keyFile = keyFile;
+    }
+
+    this.recentFilesDB.put(dbRequest);
+  }
+
+  private handleSuccessDatabaseReading(response: Kdbx | null): void {
+    if (!response) {
+      return;
+    }
+
+    this.store.dispatch(DatabasesCoreActions.addDB({ db: Object.freeze(response) }));
+    this.store.dispatch(DatabasesCoreActions.selectDB({ id: response.header.dataCipherUuid!.id }));
+    this.router.navigateByUrl('/');
+  }
+
+  private handleRecentRecordInDatabase(lastRecord: RecentFilesDBModel | null) {
+    if (!lastRecord) {
+      return;
+    }
+
+    from(this.window.electron.loadFile(lastRecord))
+      .pipe(untilDestroyed(this))
+      .subscribe(file => this.form.get('database')?.patchValue(file));
   }
 }

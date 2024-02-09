@@ -1,0 +1,27 @@
+{
+  "name": "database-loader",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/features/database-loader/src",
+  "prefix": "pf",
+  "tags": ["feature"],
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "options": {
+        "lintFilePatterns": ["libs/features/database-loader/**/*.ts"]
+      }
+    },
+    "stylelint": {
+      "executor": "nx-stylelint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "libs/features/database-loader/**/*.css",
+          "libs/features/database-loader/**/*.scss"
+        ],
+        "formatter": "unix"
+      }
+    }
+  }
+}

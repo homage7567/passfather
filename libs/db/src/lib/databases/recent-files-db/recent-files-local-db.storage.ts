@@ -6,12 +6,12 @@ import { RecentFilesDBModel, RecentFilesDBRequest } from './recent-files-db.mode
 export class RecentFilesLocalDBStorage implements RecentFilesDB {
   constructor(private readonly storageService: StorageService) {}
 
-  public put(id: UUID, model: RecentFilesDBRequest): void {
-    this.storageService.set(`${globalConfig.database.name}${id}`, JSON.stringify(model));
+  public put(model: RecentFilesDBRequest): void {
+    this.storageService.set(`${globalConfig.database.name}`, JSON.stringify(model));
   }
 
-  public get(id: UUID): Observable<RecentFilesDBModel | null> {
-    const rawItem = this.storageService.get(`${globalConfig.database.name}${id}`);
+  public get(_id: UUID): Observable<RecentFilesDBModel | null> {
+    const rawItem = this.storageService.get(`${globalConfig.database.name}`);
 
     return of(rawItem ? (JSON.parse(rawItem) as RecentFilesDBModel) : null);
   }

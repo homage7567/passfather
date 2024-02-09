@@ -1,9 +1,9 @@
 {
-  "name": "bridge",
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/bridge/src",
+  "name": "entries-view",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/features/entries-view/src",
   "prefix": "pf",
-  "tags": ["shared"],
+  "tags": ["feature"],
   "projectType": "library",
   "targets": {
     "lint": {
@@ -14,7 +14,7 @@
       "executor": "nx-stylelint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/bridge/**/*.css", "libs/bridge/**/*.scss"],
+        "lintFilePatterns": ["libs/features/entries-view/**/*.css", "libs/features/entries-view/**/*.scss"],
         "formatter": "unix"
       }
     }

@@ -8,6 +8,14 @@
     "lint": {
       "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"]
+    },
+    "stylelint": {
+      "executor": "nx-stylelint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/ui-kit/**/*.css", "libs/ui-kit/**/*.scss"],
+        "formatter": "unix"
+      }
     }
   },
   "tags": ["shared"]

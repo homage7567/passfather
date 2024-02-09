@@ -17,8 +17,10 @@
     "paths": {
       "@pf/bridge": ["libs/bridge/src/index.ts"],
       "@pf/core": ["libs/core/src/index.ts"],
-      "@pf/database-loader": ["libs/database-loader/src/index.ts"],
       "@pf/db": ["libs/db/src/index.ts"],
+      "@pf/feature/entries-view": ["libs/features/entries-view/src/index.ts"],
+      "@pf/features/database-loader": ["libs/features/database-loader/src/index.ts"],
+      "@pf/features/groups-menu": ["libs/features/groups-menu/src/index.ts"],
       "@pf/localization": ["libs/localization/src/index.ts"],
       "@pf/theme": ["libs/theme/src/index.ts"],
       "@pf/ui-kit": ["libs/ui-kit/src/index.ts"]

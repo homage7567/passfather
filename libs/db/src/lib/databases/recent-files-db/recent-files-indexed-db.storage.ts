@@ -4,6 +4,7 @@ import { catchError, from, map, Observable, of, take } from 'rxjs';
 import { RecentFilesDB } from './recent-files-db.type';
 import { IndexedDbHelper } from '../../helpers/indexed-db.helper';
 import { RecentFilesDBModel, RecentFilesDBRequest } from './recent-files-db.model';
+import { v4 as uuidv4 } from 'uuid';
 
 class RecentFIlesIndexedDBBaseStorage extends Dexie {
   public recentFiles: Dexie.Table<RecentFilesDBModel, UUID>;
@@ -22,10 +23,12 @@ class RecentFIlesIndexedDBBaseStorage extends Dexie {
 export class RecentFilesIndexedDBStorage extends RecentFIlesIndexedDBBaseStorage implements RecentFilesDB {
   private readonly db = new RecentFIlesIndexedDBBaseStorage();
 
-  public put(id: UUID, { path, name }: RecentFilesDBRequest): void {
+  public put(request: RecentFilesDBRequest): void {
     IndexedDbHelper.reopenIfClosed(this.db);
 
-    this.db.transaction('rw', this.db.recentFiles, () => this.db.recentFiles.put({ id, path, name }, id));
+    const id = uuidv4();
+
+    this.db.transaction('rw', this.db.recentFiles, () => this.db.recentFiles.put({ id, ...request }, id));
   }
 
   public get(id: UUID): Observable<RecentFilesDBModel | null> {
