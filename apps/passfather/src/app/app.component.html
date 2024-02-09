@@ -10,7 +10,7 @@
         class="header-end__language-selector"
         [options]="availableLanguages"
         [ngModel]="selectedLanguage"
-        (onChange)="onChangeLanguage($event.value)"
+        (onChange)="translocoService.setActiveLang($event.value)"
       >
         <ng-template
           pTemplate="selectedItem"
@@ -31,7 +31,7 @@
         class="header-end__theme-selector"
         [options]="availableThemes"
         [ngModel]="selectedTheme$ | async"
-        (onChange)="onChangeTheme($event.value)"
+        (onChange)="themeService.setTheme($event.value)"
       >
         <ng-template
           pTemplate="selectedItem"
