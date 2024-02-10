@@ -12,7 +12,7 @@ export const appRoutes: Routes = [
         canActivate: [databaseLoadedGuard]
       },
       {
-        path: 'load',
+        path: 'loading',
         // eslint-disable-next-line @nx/enforce-module-boundaries
         loadChildren: () => import('libs/features/database-loader/src/lib/database-loader.routes'),
         providers: [provideTranslocoScope('database-loader')]

@@ -1,15 +1,18 @@
 import { Routes } from '@angular/router';
 import { LayoutComponent } from './layout.component';
-import { EntriesViewComponent } from '@pf/feature/entries-view';
+import { entriesResolver, EntriesViewComponent } from '@pf/feature/entries-view';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'database',
     component: LayoutComponent,
     children: [
       {
-        path: '',
-        component: EntriesViewComponent
+        path: ':groupId',
+        component: EntriesViewComponent,
+        resolve: {
+          entries: entriesResolver
+        }
       }
     ]
   }

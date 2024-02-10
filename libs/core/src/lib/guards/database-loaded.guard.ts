@@ -15,7 +15,7 @@ export const databaseLoadedGuard = (): Observable<boolean> => {
         return true;
       }
 
-      router.navigateByUrl('/load');
+      router.navigateByUrl('/loading');
       return false;
     })
   );

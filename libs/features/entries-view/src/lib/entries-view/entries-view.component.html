@@ -1,1 +1,12 @@
-<p>entries-view works!</p>
+<ng-container *ngIf="table$ | async as table">
+  <p-card>
+    <p-table [value]="table">
+      <ng-template pTemplate="body" let-entry>
+        <tr>
+          <td>{{ entry.title }}</td>
+          <td>{{ entry.key }}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </p-card>
+</ng-container>
