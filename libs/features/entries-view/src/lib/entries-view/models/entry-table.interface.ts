@@ -1,4 +1,7 @@
 export interface EntryTableInterface {
-  title: string;
   key: string;
+  title: string;
+  username: string;
+  url: string;
+  email: string;
 }

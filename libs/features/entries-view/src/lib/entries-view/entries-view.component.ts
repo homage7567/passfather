@@ -6,10 +6,11 @@ import { EntriesViewBuilderService } from './services/entries-view-builder.servi
 import { TableModule } from 'primeng/table';
 import { EntryTableInterface } from './models/entry-table.interface';
 import { CardModule } from 'primeng/card';
+import { TranslocoModule } from '@ngneat/transloco';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, CardModule, TableModule],
+  imports: [CommonModule, TranslocoModule, CardModule, TableModule],
   templateUrl: './entries-view.component.html',
   styleUrl: './entries-view.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

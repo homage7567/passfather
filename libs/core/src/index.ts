@@ -1,4 +1,7 @@
 export { globalConfig } from './lib/constants/global-config';
+export { BaseRoute } from './lib/constants/base-route';
+export { LayoutRoute } from './lib/constants/layout-route';
+export { TranslocoScopeName } from './lib/constants/transloco-scope-name';
 
 export { databaseLoadedGuard } from './lib/guards/database-loaded.guard';
 

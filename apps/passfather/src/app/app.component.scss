@@ -1,8 +1,15 @@
 :host {
   display: block;
-  max-width: 1300px;
   margin: auto;
   height: 100vh;
+
+  @media screen and (max-width: 1331px) {
+    padding: 0 16px 16px 16px;
+  }
+
+  @media screen and (min-width: 1332px) {
+    max-width: 1300px;
+  }
 
   ::ng-deep {
     .header {

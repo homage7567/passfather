@@ -6,8 +6,11 @@ import { EntryTableInterface } from '../models/entry-table.interface';
 export class EntriesViewBuilderService {
   public makeEntriesTree(entries: KdbxEntry[]): EntryTableInterface[] {
     return entries.map(entry => ({
+      key: entry.uuid.id,
+      url: entry.fields.get('URL')?.toString() ?? '',
       title: entry.fields.get('Title')?.toString() ?? '',
-      key: entry.uuid.id
+      username: entry.fields.get('UserName')?.toString() ?? '',
+      email: entry.fields.get('Почта')?.toString() ?? '',
     }));
   }
 }
